@@ -1,0 +1,114 @@
+
+#counter {
+	font-family: Arial;
+	font-size: 68pt;
+	font-weight: bold;
+	position: absolute;
+	margin-top: 150px;
+	margin-left: calc(50% - 30px);
+	width: 10px;
+	color: white;
+	text-shadow: 2px 2px gray;
+}
+
+.screen {
+	width: 100%;
+	border: 0px solid black;
+	background: lightgray;
+	text-align: center;
+}
+
+.container {
+	width: 400px;
+	height: 400px;
+	margin: 20px auto;
+	border: 0px solid red;	
+}
+
+.nav {
+	width: 400px;
+	margin: 20px auto;
+	border: 0px solid red;	
+	text-align: center;
+}
+
+.label {
+	font-family: Arial;
+	font-size: 10pt;
+	font-weight: bold;
+	text-align: left;
+	position: absolute;
+	margin-top: 0px;
+    width: 110px; 
+    height: 20px; 
+    background: yellow;
+	color: black;
+	padding: 5px 0 0 10px;
+	border-radius: 0px 0px 10px 0px;
+	opacity: 0.7;
+}
+
+/* **************** */
+
+.container1 {
+	display: grid;
+	grid-template-columns: repeat(1, 1fr);
+	gap: 10px;	
+}
+
+/* **************** */
+
+.container2_1 {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+}
+
+/* **************** */
+
+.container2 {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 10px;	
+}
+
+/* **************** */
+
+.container3 {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 10px;
+}
+.container3 > div:nth-child(n + 3){
+	width: 205%;
+}
+
+/* **************** */
+
+.container4 {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 10px;
+}
+
+/* *************** */
+
+.polaroid {
+	margin: 30px 0 0 -20px;
+	background: #fff;
+	padding: 1px 1rem 1rem 1rem;
+	box-shadow: 0 0.2rem 1.2rem rgba(0,0,0,0.2); 
+	width: 400px;
+}
+
+.caption {
+	font-family: 'Poor Story', cursive;
+	font-size: 1.8rem;
+	text-align: center;
+	line-height: 2em;
+}
+
+@IMPORT <link href="https://fonts.googleapis.com/css?family=Poor+Story" rel="stylesheet">
+
+--// CSS Modal: https://codepen.io/iansoper/pen/npqgC
+--// CSS Polaroid: https://codepen.io/neodern/pen/oKEyaw
