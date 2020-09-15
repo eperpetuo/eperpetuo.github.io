@@ -52,7 +52,8 @@ function login(form) {
 	pubnub = new PubNub({
 		subscribeKey: "sub-c-d903b71e-f49e-11ea-8db0-569464a6854f",
 		publishKey: "pub-c-7e8de6bd-3d52-4e17-97ec-20acd3fe2c60",
-		uuid: "myUniqueUUID"
+		uuid: "myUniqueUUID",
+		ssl: true
 	});
 	
 	pubnub.addListener({
@@ -81,7 +82,7 @@ function login(form) {
 	})
 
 	pubnub.subscribe({ 
-		channels: ['comm_channel'] 
+		channels: ['photo'] 
 	});;
 
 
@@ -113,12 +114,12 @@ function addToLobby(session) {
 
 function smile() {
 	var newMessage = {
-		text: 'Hi There!'
+		text: 'smile!'
 	}
 	pubnub.publish(
 		{
 			message: newMessage,
-			channel: 'comm_channel'
+			channel: 'photo'
 		}, 
 		function(status, response) {
 			if (status.error) {
