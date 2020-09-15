@@ -6,7 +6,7 @@ var pubnub;
 	/* Setting up the constraint */
 	var facingMode = "user"; // Can be 'user' or 'environment' to access back or front camera (NEAT!)
 	var constraints = {
-			audio: true,
+			audio: false,
 			video: {
 			facingMode: facingMode
 		}
