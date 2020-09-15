@@ -1,7 +1,9 @@
 var ctrl;
-var localstream;
 var pubnub;
 
+// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+// Initiate user video and single layout
+// -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 (function(){
 	/* Setting up the constraint */
 	var facingMode = "user"; // Can be 'user' or 'environment' to access back or front camera (NEAT!)
@@ -15,7 +17,6 @@ var pubnub;
 	navigator.mediaDevices.getUserMedia(constraints).then(function success(stream) {
 		var video = document.createElement('video');
 		video.srcObject = stream;
-		localstream = stream;
 		var session = {'number':'me', 'video':video};		
 		sessions.push(session);
 		createLayout("app", false);
@@ -48,7 +49,7 @@ function login(form) {
 			createLayout("app", false);
 		});
 	});
-/*
+	
 	pubnub = new PubNub({
 		subscribeKey: "sub-c-d903b71e-f49e-11ea-8db0-569464a6854f",
 		publishKey: "pub-c-7e8de6bd-3d52-4e17-97ec-20acd3fe2c60",
@@ -84,7 +85,6 @@ function login(form) {
 	pubnub.subscribe({ 
 		channels: ['photo'] 
 	});;
-*/
 
 	return false;  // So the form does not submit.
 }
@@ -113,12 +113,8 @@ function addToLobby(session) {
 }
 
 function smile() {
-	var newMessage = {
-		text: 'smile!'
-	}
-	pubnub.publish(
-		{
-			message: newMessage,
+	pubnub.publish({
+			message: { text: 'smile!' },
 			channel: 'photo'
 		}, 
 		function(status, response) {
@@ -141,7 +137,7 @@ function countdown(timeleft) {
 			document.getElementById("counter").innerHTML = "";
 			takePhoto();
 		}
-    },1000);
+    }, 1000);
 }
 
 function takePhoto() {
@@ -178,13 +174,7 @@ function createLayout(elementId, isPhoto) {
 	var container = document.createElement("div");
 	container.className = "container container" + sessions.length;
 	
-	/*sessions.sort(function(s1, s2){
-		if(s1.number < s2.number)
-			return -1;
-		if(s1.number > s2.number)
-			return 1;
-		return 0;
-	});*/
+	/*sessions.sort(compareSession);*/
 	
 	sessions.forEach(function (session, index) {
 		var screen = document.createElement("div");
@@ -222,4 +212,10 @@ function createLayout(elementId, isPhoto) {
 		element.appendChild(caption);
 	}
 	return screens;
+}
+
+function compareSession(session1, session2){
+	if(session1.number < session2.number) return -1;
+	if(session1.number > session2.number) return 1;
+	return 0;
 }
