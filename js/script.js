@@ -1,6 +1,9 @@
 var ctrl;
 var pubnub;
 
+var lobby = new Array();
+var sessions = new Array();
+
 // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 // Initiate user video and single layout
 // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -49,7 +52,7 @@ function login(form) {
 			createLayout("app", false);
 		});
 	});
-/*	
+	
 	pubnub = new PubNub({
 		subscribeKey: "sub-c-d903b71e-f49e-11ea-8db0-569464a6854f",
 		publishKey: "pub-c-7e8de6bd-3d52-4e17-97ec-20acd3fe2c60",
@@ -85,7 +88,7 @@ function login(form) {
 	pubnub.subscribe({ 
 		channels: ['photo'] 
 	});;
-*/
+
 	return false;  // So the form does not submit.
 }
 
@@ -101,15 +104,24 @@ function makeCall(form){
 	return false;
 }
 
-var lobby = new Array();
-var sessions = new Array();
-
 function addToLobby(session) {
-	var r = confirm(session.number + " is waiting in the Lobby.");
-	if (r == true) {
-		sessions.push(session);
-		createLayout("app", false);
-	}
+	
+	new duDialog("@" + session.number, 'is waiting in the lobby', duDialog.OK_CANCEL, { 
+		okText: 'Admit',
+		cancelText: 'View',
+		dark: true,
+		callbacks: {
+			okClick: function(){
+				sessions.push(session);
+				createLayout("app", false);
+				this.hide();
+			},
+			cancelClick: function(){
+				lobby.push(session);
+				this.hide();
+			}
+		}
+	});
 }
 
 function smile() {
