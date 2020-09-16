@@ -3,6 +3,9 @@ var pubnub;
 
 var lobby = new Array();
 var sessions = new Array();
+var isHost = true;
+var joinned = false;
+var orderList;
 
 // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 // Initiate user video and single layout
@@ -43,6 +46,10 @@ function login(form) {
 			console.log("Adicionando session");
 			console.log("Session: " + JSON.stringify(session));
 		    sessions.push(session);
+			if(isHost) {
+				console.log("Enviando ordem");
+				sendOrder();
+			}
 			createLayout("app", false);
 			//addToLobby(session);
 		});
@@ -61,33 +68,25 @@ function login(form) {
 	});
 	
 	pubnub.addListener({
-		status: function(statusEvent) {
-			if (statusEvent.category === "PNConnectedCategory") {
-				var newState = {
-					new: 'state' 
-				};
-				pubnub.setState(
-					{ 
-						state: newState 
-					}, 
-					function (status) {
-						// handle state setting response
-					}
-				);
-			}
-		},
 		message: function(message) {
 			// handle message
-			countdown(5);
-		},
-		presence: function(presenceEvent) {
-			// handle presence
+			if(message.message.text === 'smile!') {
+				countdown(5);
+			}
+			else if(message.message.text === 'reorder') {
+				if(!isHost) {
+					console.log("Ordem recebida: " + message.message.orderList);				
+					orderList = message.message.orderList;
+				}
+			}
 		}
 	})
 
 	pubnub.subscribe({ 
-		channels: ['photo'] 
+		channels: ['channel'] 
 	});;
+	
+	sessions[0].number = form.username.value;
 
 	return false;  // So the form does not submit.
 }
@@ -101,39 +100,66 @@ function end(){
 function makeCall(form){
     if (!window.phone) alert("Login First!");
 	else phone.dial(form.number.value);
+	isHost = false;
+	console.log("isHost: " + isHost);
 	return false;
 }
 
 function addToLobby(session) {
-	
-	new duDialog("@" + session.number, 'is waiting in the lobby', duDialog.OK_CANCEL, { 
-		okText: 'Admit',
-		cancelText: 'View',
-		dark: true,
-		callbacks: {
-			okClick: function(){
-				sessions.push(session);
-				createLayout("app", false);
-				this.hide();
-			},
-			cancelClick: function(){
-				lobby.push(session);
-				this.hide();
+	if(isHost) 
+		new duDialog("@" + session.number, 'is waiting in the lobby', duDialog.OK_CANCEL, { 
+			okText: 'Admit',
+			cancelText: 'View',
+			dark: false,
+			callbacks: {
+				okClick: function(){
+					sessions.push(session);
+					createLayout("app", false);
+					this.hide();
+				},
+				cancelClick: function(){
+					lobby.push(session);
+					this.hide();
+				}
 			}
-		}
-	});
+		});
+	else {
+		sessions.push(session);
+		createLayout("app", false);
+	}
 }
 
 function smile() {
 	pubnub.publish({
 			message: { text: 'smile!' },
-			channel: 'photo'
+			channel: 'channel'
 		}, 
 		function(status, response) {
 			if (status.error) {
 				console.log("publishing failed w/ status: ", status);
 			} else {
 				countdown(5);
+			}
+		}
+	);
+}
+function sendOrder() {
+	
+	orderList = new Array();
+	sessions.forEach(function (session) {
+		orderList.push(session.number);
+		console.log(session.number);
+	});
+		
+	pubnub.publish({
+			message: { text: 'reorder', orderList: orderList },
+			channel: 'channel'
+		}, 
+		function(status, response) {
+			if (status.error) {
+				console.log("publishing failed w/ status: ", status);
+			} else {
+				//countdown(5);
 			}
 		}
 	);
@@ -186,7 +212,19 @@ function createLayout(elementId, isPhoto) {
 	var container = document.createElement("div");
 	container.className = "container container" + sessions.length;
 	
-	/*sessions.sort(compareSession);*/
+	if(orderList) {
+		console.log("Reordenando telas");
+		var list = new Array();
+		orderList.forEach(function (ord, index) {
+			sessions.forEach(function (session, index) {
+				if(session.number == ord) {
+					list.push(session);
+					console.log("Tela: " + ord);
+				}
+			});
+		});
+		sessions = list;
+	}	
 	
 	sessions.forEach(function (session, index) {
 		var screen = document.createElement("div");
@@ -223,11 +261,11 @@ function createLayout(elementId, isPhoto) {
 		caption.innerHTML = "Here is your photo!";
 		element.appendChild(caption);
 	}
+	/*
+	if(isHost && pubnub && sessions.length > 1) {
+		console.log("Enviando ordem");
+		sendOrder();
+	}*/
+	
 	return screens;
-}
-
-function compareSession(session1, session2){
-	if(session1.number < session2.number) return -1;
-	if(session1.number > session2.number) return 1;
-	return 0;
 }
