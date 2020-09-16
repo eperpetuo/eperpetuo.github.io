@@ -77,6 +77,7 @@ function login(form) {
 				if(!isHost) {
 					console.log("Ordem recebida: " + message.message.orderList);				
 					orderList = message.message.orderList;
+					createLayout("app", false);
 				}
 			}
 		}
