@@ -1,8 +1,8 @@
 
 .photo-button {
-  width: 80px;
-  height: 80px;
-  margin-left: 210px;
+  width: 70px;
+  height: 70px;
+  margin-left: 165px;
   background: #DEE0F3;
   border-radius: 100%;
   border: 1px solid #DEE0F3;
@@ -10,17 +10,17 @@
 .circle {
   margin-left: 3px;
   margin-top: 3px;
-  width: 74px;
-  height: 74px;
+  width: 64px;
+  height: 64px;
   border-radius: 100%;
   background-color: #fff;
   opacity: 0.6;
 }
 .ring {
-  width: 80px;
-  height: 80px;
+  width: 70px;
+  height: 70px;
   margin-left: -8px;
-  margin-top: -85px;
+  margin-top: -75px;
   border-radius: 100%;
   border: 0.5em solid #fff;
   opacity: 0.8;
