@@ -293,7 +293,7 @@ function createLayout(elementId, isPhoto) {
 		caption.innerHTML = "Here is your photo!";
 		
 		var logo = document.createElement("img");
-		logo.src = "img/logo.png";
+		logo.src = "img/logo-white.png";
 		caption.appendChild(logo);
 		
 		element.appendChild(caption);

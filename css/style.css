@@ -4,7 +4,7 @@ body {
   color: #3a3c47;
   line-height: 1.6;
   align-items: center;
-  margin: 0 20px;
+  margin: 0;
   padding: 0;
 }
 
@@ -15,7 +15,7 @@ p { width: 500px; text-align: left;}
 	font-size: 68pt;
 	font-weight: bold;
 	position: absolute;
-	margin-top: 200px;
+	margin-top: 180px;
 	margin-left: -35px;
 	width: 10px;
 	color: white;
@@ -30,15 +30,13 @@ p { width: 500px; text-align: left;}
 }
 
 #app {
-	width: 100%;
-	max-width: 450px;
+	width: 450px;
 	margin: 0px auto;
 }
 
 .container {
-	width: 100%;
-	max-width: 450px;
-	height: 450px;
+	width: 400px;
+	height: 400px;
 	margin: 20px auto;
 	border: 0px solid red;	
 	padding: 25px;
@@ -49,8 +47,7 @@ p { width: 500px; text-align: left;}
 	margin: 10px 0 0 0px;
 	background: #fff;
 	padding: 0;
-	width: 100%;
-	max-width: 500px;
+	width: 450px;
 	border: 1px solid ##e1e2f0;
 	border-radius: 4px;
 	box-shadow: 0 0 5px 0 rgba(42, 45, 48, 0.12);
@@ -62,15 +59,14 @@ p { width: 500px; text-align: left;}
 	font-size: 1.8rem;
 	text-align: left;
 	line-height: 2em;
-	width: 100%;
-	max-width: 500px;
+	width: 400px;
 	background: #fff;
 	margin: -20px 0 20px 0;
 	padding-bottom: 30px;
 }
 
 .caption > img {
-	width: 90px;
+	width: 70px;
 	float: left;
 	margin-top: -10px;
 	margin-left: 25px;
@@ -78,8 +74,7 @@ p { width: 500px; text-align: left;}
 }
 
 .nav {
-	width: 100%;
-	max-width: 500px;
+	width: 500px;
 	margin: 0px auto;
 	border: 0px solid red;	
 	text-align: left;
