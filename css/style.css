@@ -4,7 +4,7 @@ body {
   color: #3a3c47;
   line-height: 1.6;
   align-items: center;
-  margin: 0;
+  margin: 0 40px;
   padding: 0;
 }
 
@@ -68,8 +68,15 @@ p { width: 500px; text-align: left;}
 	margin-right: 30px;
 }
 
+#app {
+	width: 100%;
+	max-width: 500px;
+	margin: 0px auto;
+}
+
 .nav {
-	width: 500px;
+	width: 100%;
+	max-width: 500px;
 	margin: 0px auto;
 	border: 0px solid red;	
 	text-align: left;
