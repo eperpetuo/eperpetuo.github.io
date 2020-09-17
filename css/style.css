@@ -1,11 +1,22 @@
+body {
+  font-family: 'Open Sans', sans-serif;
+  background: #f9faff;
+  color: #3a3c47;
+  line-height: 1.6;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+
+p { width: 500px; text-align: left;}
 
 #counter {
 	font-family: Arial;
 	font-size: 68pt;
 	font-weight: bold;
 	position: absolute;
-	margin-top: 150px;
-	margin-left: calc(50% - 30px);
+	margin-top: 200px;
+	margin-left: -35px;
 	width: 10px;
 	color: white;
 	text-shadow: 2px 2px gray;
@@ -19,17 +30,90 @@
 }
 
 .container {
-	width: 400px;
-	height: 400px;
+	width: 450px;
+	height: 450px;
 	margin: 20px auto;
 	border: 0px solid red;	
+	padding: 25px;
+	background: #fff;
+}
+
+.polaroid {
+	margin: 10px 0 0 0px;
+	background: #fff;
+	padding: 0;
+	width: 500px;
+	border: 1px solid ##e1e2f0;
+	border-radius: 4px;
+	box-shadow: 0 0 5px 0 rgba(42, 45, 48, 0.12);
+	transition: all 0.3s ease;
+}
+
+.caption {
+	font-family: 'Poor Story', cursive;
+	font-size: 1.8rem;
+	text-align: left;
+	line-height: 2em;
+	width: 500px;
+	background: #fff;
+	margin: -20px 0 20px 0;
+	padding-bottom: 30px;
+}
+
+.caption > img {
+	width: 90px;
+	float: left;
+	margin-top: -10px;
+	margin-left: 25px;
+	margin-right: 30px;
 }
 
 .nav {
-	width: 400px;
-	margin: 20px auto;
+	width: 500px;
+	margin: 0px auto;
 	border: 0px solid red;	
-	text-align: center;
+	text-align: left;
+}
+
+.nav > img {
+	width: 30px;
+	float: left;
+	margin-bottom: 10px;
+}
+
+.divider {
+	margin:10px;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  font-size: 18px;
+  background: #15C39A;
+  color: #fff;
+  border: none;
+  border-radius: 100px;
+  cursor: pointer;
+  font-family: 'Open Sans', sans-serif;
+  margin-top: 10px;
+  transition: background 0.2s ease-out;
+}
+
+.endcall {
+	background: #FA3367;
+}
+
+button:hover {
+  background: #55D3AC;
+}
+
+button:focus {
+	outline: none;
+    border: none;
+}
+
+.endcall:hover {
+	background: #FE618A;
 }
 
 .label {
@@ -43,7 +127,7 @@
     height: 20px; 
     background: yellow;
 	color: black;
-	padding: 5px 0 0 10px;
+	padding: 5px 0 5px 10px;
 	border-radius: 0px 0px 10px 0px;
 	opacity: 0.7;
 }
@@ -93,22 +177,8 @@
 
 /* *************** */
 
-.polaroid {
-	margin: 30px 0 0 -20px;
-	background: #fff;
-	padding: 1px 1rem 1rem 1rem;
-	box-shadow: 0 0.2rem 1.2rem rgba(0,0,0,0.2); 
-	width: 400px;
-}
 
-.caption {
-	font-family: 'Poor Story', cursive;
-	font-size: 1.8rem;
-	text-align: center;
-	line-height: 2em;
-}
-
-@IMPORT <link href="https://fonts.googleapis.com/css?family=Poor+Story" rel="stylesheet">
+@import url('https://fonts.googleapis.com/css?family=Poor+Story');
 
 --// CSS Modal: https://codepen.io/iansoper/pen/npqgC
 --// CSS Polaroid: https://codepen.io/neodern/pen/oKEyaw
