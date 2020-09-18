@@ -94,7 +94,7 @@ p { width: 500px; text-align: left;}
 #number {
 	border-radius: 10px;
 	width: 400px;
-	margin: auto;
+	margin: 40px auto 0 auto;
 }
 
 .call-controler {
