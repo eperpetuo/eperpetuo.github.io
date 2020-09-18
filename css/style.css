@@ -107,7 +107,7 @@ button {
   border-radius: 100px;
   cursor: pointer;
   font-family: 'Open Sans', sans-serif;
-  margin-top: 10px;
+  margin-top: 20px;
   transition: background 0.2s ease-out;
 }
 
