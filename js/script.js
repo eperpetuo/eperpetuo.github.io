@@ -4,7 +4,6 @@ var pubnub;
 var lobby = new Array();
 var sessions = new Array();
 var isHost = true;
-var joinned = false;
 var orderList;
 
 // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -34,9 +33,10 @@ var orderList;
 
 function login() {
 	var phone = window.phone = PHONE({
-		number        : getParams(window.location.href)["username"] || "Anonymous", // listen on username line else Anonymous
+		number        : getParams(window.location.href)["username"], // listen on username line
 		publish_key   : 'pub-c-7e8de6bd-3d52-4e17-97ec-20acd3fe2c60',
 		subscribe_key : 'sub-c-d903b71e-f49e-11ea-8db0-569464a6854f',
+		ssl: true
 	}); 
 	
 	ctrl = window.ctrl = CONTROLLER(phone);
@@ -45,12 +45,11 @@ function login() {
 	
 	ctrl.receive(function(session){
 		session.connected(function(session) { 
-			console.log("Adicionando session");
-			console.log("Session: " + JSON.stringify(session));
+			console.log("Adding session: " + session.number);
 		    sessions.push(session);
 			if(isHost) {
-				console.log("Enviando ordem");
-				sendOrder();
+				console.log("Sending list of participants");
+				sendOrderList();
 			}
 			createLayout("app", false);
 			//addToLobby(session);
@@ -149,7 +148,8 @@ function smile() {
 		}
 	);
 }
-function sendOrder() {
+
+function sendOrderList() {
 	
 	orderList = new Array();
 	sessions.forEach(function (session) {
@@ -164,8 +164,6 @@ function sendOrder() {
 		function(status, response) {
 			if (status.error) {
 				console.log("publishing failed w/ status: ", status);
-			} else {
-				//countdown(5);
 			}
 		}
 	);
@@ -211,9 +209,6 @@ function takePhoto() {
 	// Get the modal
 	var modal = document.getElementById("myModal");
 
-	// Get the button that opens the modal
-	var btn = document.getElementById("myBtn");
-
 	// Get the <span> element that closes the modal
 	var span = document.getElementsByClassName("close")[0];
 
@@ -224,14 +219,12 @@ function takePhoto() {
 	
 	modal.style.display = "block";
 
-
 	// When the user clicks anywhere outside of the modal, close it
 	window.onclick = function(event) {
 		if (event.target == modal) {
 			modal.style.display = "none";
 		}
 	}
-
 }
 
 function createLayout(elementId, isPhoto) {
@@ -244,13 +237,12 @@ function createLayout(elementId, isPhoto) {
 	container.className = "container container" + sessions.length;
 	
 	if(orderList) {
-		console.log("Reordenando telas");
+		console.log("Sorting screens");
 		var list = new Array();
 		orderList.forEach(function (ord, index) {
 			sessions.forEach(function (session, index) {
 				if(session.number == ord) {
 					list.push(session);
-					console.log("Tela: " + ord);
 				}
 			});
 		});
@@ -280,7 +272,6 @@ function createLayout(elementId, isPhoto) {
 
 			screen.appendChild(video);
 		}
-		
 		screens.push(screen);
 		container.appendChild(screen);
 	});
@@ -298,12 +289,6 @@ function createLayout(elementId, isPhoto) {
 		
 		element.appendChild(caption);
 	}
-	/*
-	if(isHost && pubnub && sessions.length > 1) {
-		console.log("Enviando ordem");
-		sendOrder();
-	}*/
-	
 	return screens;
 }
 

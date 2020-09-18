@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Poor+Story');
+
 body {
   font-family: 'Open Sans', sans-serif;
   background: #f9faff;
@@ -87,10 +89,6 @@ p { width: 500px; text-align: left;}
 	text-align: left;
 }
 
-.divider {
-	margin:0px;
-}
-
 #number {
 	border-radius: 10px;
 	width: 400px;
@@ -116,37 +114,6 @@ p { width: 500px; text-align: left;}
 
 .call-controler > img {
   transition: all 0.25s;
-}
-
-button {
-  width: 100%;
-  padding: 12px;
-  font-size: 18px;
-  background: #15C39A;
-  color: #fff;
-  border: none;
-  border-radius: 100px;
-  cursor: pointer;
-  font-family: 'Open Sans', sans-serif;
-  margin-top: 20px;
-  transition: background 0.2s ease-out;
-}
-
-.endcall {
-	background: #FA3367;
-}
-
-button:hover {
-  background: #55D3AC;
-}
-
-button:focus {
-	outline: none;
-    border: none;
-}
-
-.endcall:hover {
-	background: #FE618A;
 }
 
 .label {
@@ -212,7 +179,6 @@ button:focus {
 
 
 
-@import url('https://fonts.googleapis.com/css?family=Poor+Story');
 
 --// CSS Modal: https://codepen.io/iansoper/pen/npqgC
 --// CSS Polaroid: https://codepen.io/neodern/pen/oKEyaw
