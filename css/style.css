@@ -17,7 +17,7 @@ p { width: 500px; text-align: left;}
 	font-size: 68pt;
 	font-weight: bold;
 	position: absolute;
-	margin-top: 160px;
+	margin-top: 130px;
 	margin-left: -35px;
 	width: 10px;
 	color: white;
@@ -37,7 +37,16 @@ p { width: 500px; text-align: left;}
 	max-width: 400px;
 	margin: 0px auto;
 	border: 0px solid green;
+}
 
+#preview {
+	display: block;
+	width: 70px;
+	height: 70px;
+	margin-left: 310px;
+	margin-top: -75px;
+	box-shadow: 0 0 5px 0 rgba(42, 45, 48, 0.12);
+	border-radius: 10px;
 }
 
 .container {

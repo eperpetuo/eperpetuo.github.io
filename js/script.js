@@ -26,7 +26,7 @@ var orderList;
 		sessions.push(session);
 		createLayout("app", false);
 		document.getElementById("label").style.backgroundColor="lightgray";
-		login();
+		//login();
 	});
 
 })();
@@ -206,6 +206,17 @@ function takePhoto() {
 		screens[index].appendChild(img);		
 	});
 	
+	html2canvas($("#galery"), {
+		onrendered: function(canvas) {
+			var image = Canvas2Image.convertToPNG(canvas);
+            $("#preview").attr('src', $(image).attr('src'));
+			//document.body.appendChild(image);
+			$("#galery").html("");
+		}
+	});
+	
+/*
+	
 	// Get the modal
 	var modal = document.getElementById("myModal");
 
@@ -225,6 +236,8 @@ function takePhoto() {
 			modal.style.display = "none";
 		}
 	}
+	
+	*/
 }
 
 function createLayout(elementId, isPhoto) {
@@ -277,7 +290,7 @@ function createLayout(elementId, isPhoto) {
 	});
 	element.appendChild(container);
 	
-	if(isPhoto) {
+	/*if(isPhoto) {
 		element.className = "polaroid";
 		var caption = document.createElement("div");
 		caption.className = "caption";
@@ -288,7 +301,7 @@ function createLayout(elementId, isPhoto) {
 		caption.appendChild(logo);
 		
 		element.appendChild(caption);
-	}
+	}*/
 	return screens;
 }
 
