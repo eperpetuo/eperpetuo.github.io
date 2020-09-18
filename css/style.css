@@ -87,14 +87,35 @@ p { width: 500px; text-align: left;}
 	text-align: left;
 }
 
-.nav > img {
-	width: 30px;
-	float: left;
-	margin-bottom: 0px;
-}
-
 .divider {
 	margin:0px;
+}
+
+#number {
+	border-radius: 10px;
+	width: 400px;
+	margin: auto;
+}
+
+.call-controler {
+	text-align: center;
+	border: 0px solid red;
+	margin: auto;
+	width: 250px;
+}
+
+.call-controler > img {
+	width: 65px;
+	float: left;
+	margin: 30px 30px;
+}
+
+.call-controler > img:hover {
+  opacity: 0.6;
+}
+
+.call-controler > img {
+  transition: all 0.25s;
 }
 
 button {
