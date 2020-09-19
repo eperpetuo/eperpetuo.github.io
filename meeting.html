@@ -23,6 +23,7 @@
 	<link rel="stylesheet" type="text/css" href="css/modal.css"/>
 	<link rel="stylesheet" type="text/css" href="css/photo-button.css"/>
 	<link rel="stylesheet"href="css/duDialog.css">
+	<link href="css/lightbox.css" rel="stylesheet" />
 	<script src="js/duDialog.js"></script>
 </head>
 
@@ -39,7 +40,7 @@
 			<div class="ring"></div>
 		</div>
 		
-		<img id="preview" src="img/ms-icon-70x70.png">
+		<a id="previewLink" href="img/ms-icon-70x70.png" data-lightbox="gallery"><img id="preview" src="img/ms-icon-70x70.png"></a>
 
 		<div class="row">
 			<!--label for="username">Join a session</label-->
@@ -75,7 +76,8 @@
 	<script src="https://cdn.pubnub.com/webrtc/rtc-controller.js"></script>
 	<script src="https://superal.github.io/canvas2image/canvas2image.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
-
+	<script src="js/croppie.js"></script>
+	<script src="js/lightbox.js"></script>
 	<script src="js/webrtc.js"></script>
 	<script src="js/script.js"></script>
 </html>
