@@ -2,34 +2,55 @@ var ctrl;
 var pubnub;
 
 var lobby = new Array();
+var myGallery = new Array();
 var sessions = new Array();
 var isHost = true;
 var orderList;
+var facingMode = "user"; // Can be 'user' or 'environment' to access back or front camera
 
 // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 // Initiate user video and single layout
 // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 (function(){
-	/* Setting up the constraint */
-	var facingMode = "user"; // Can be 'user' or 'environment' to access back or front camera (NEAT!)
+	
+	var video = document.createElement('video');
+	var session = {'number': getParams(window.location.href)["username"], 'video':video, 'localStream' : true};		
+	sessions.push(getLocalWebCamFeed(session));
+	createLayout("app", false);
+	document.getElementById("label").style.backgroundColor="lightgray";
+	login();			
+
+})();
+
+ function getLocalWebCamFeed(session){
+	/* Stream it to video element */	/* Setting up the constraint */
 	var constraints = {
-			audio: false,
+			audio: true,
 			video: {
 			facingMode: facingMode
 		}
 	};
-	/* Stream it to video element */
-	navigator.mediaDevices.getUserMedia(constraints).then(function success(stream) {
-		var video = document.createElement('video');
-		video.srcObject = stream;
-		var session = {'number': getParams(window.location.href)["username"], 'video':video};		
-		sessions.push(session);
-		createLayout("app", false);
-		document.getElementById("label").style.backgroundColor="lightgray";
-		//login();
-	});
 
-})();
+	navigator.getWebcam = (navigator.getUserMedia || navigator.webKitGetUserMedia || navigator.moxGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia);
+	if (navigator.mediaDevices.getUserMedia) {
+		navigator.mediaDevices.getUserMedia(constraints)
+		.then(function (stream) {
+			var video = session.video;
+			video.srcObject = stream;
+		})
+		.catch(function (e) { console.log(e.name + ": " + e.message); });
+	}
+	else {
+		navigator.getWebcam({ audio: true, video: true }, 
+			function (stream) {
+				var video = session.video;
+				video.srcObject = stream;
+			}, 
+			function () { console.log("Web cam is not accessible."); 
+		});
+	}
+	return session;	
+ }
 
 function login() {
 	var phone = window.phone = PHONE({
@@ -143,7 +164,7 @@ function smile() {
 			if (status.error) {
 				console.log("publishing failed w/ status: ", status);
 			} else {
-				countdown(5);
+				//countdown(5);
 			}
 		}
 	);
@@ -210,8 +231,9 @@ function takePhoto() {
 		onrendered: function(canvas) {
 			var image = Canvas2Image.convertToPNG(canvas);
             $("#preview").attr('src', $(image).attr('src'));
-			//document.body.appendChild(image);
-			$("#galery").html("");
+            $("#previewLink").attr('href', $(image).attr('src'));
+			myGallery.push(image);
+			//$("#galery").html("");
 		}
 	});
 	
@@ -266,6 +288,12 @@ function createLayout(elementId, isPhoto) {
 		var screen = document.createElement("div");
 		screen.className = "screen";
 		
+		if(session.localStream) {
+			screen.addEventListener('click', function (event) {
+				switchMobileCamera(session);
+			});	
+		}
+		
 		var label = document.createElement("div");
 		label.id = "label";
 		label.className = "label";
@@ -305,7 +333,18 @@ function createLayout(elementId, isPhoto) {
 	return screens;
 }
 
-var getParams = function (url) {
+// Switch between front and back camera when opened in a mobile browser
+function switchMobileCamera(session){
+	if (facingMode == "user") {
+		facingMode = "environment";
+	} else {
+		facingMode = "user";
+	}
+	getLocalWebCamFeed(session);
+}
+
+
+function getParams(url) {
 	var params = {};
 	var parser = document.createElement('a');
 	parser.href = url;
