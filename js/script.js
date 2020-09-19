@@ -2,7 +2,6 @@ var ctrl;
 var pubnub;
 
 var lobby = new Array();
-var myGallery = new Array();
 var sessions = new Array();
 var isHost = true;
 var orderList;
@@ -229,11 +228,21 @@ function takePhoto() {
 	
 	html2canvas($("#galery"), {
 		onrendered: function(canvas) {
+			var prev = $("#preview").attr('src');
+
 			var image = Canvas2Image.convertToPNG(canvas);
             $("#preview").attr('src', $(image).attr('src'));
             $("#previewLink").attr('href', $(image).attr('src'));
-			myGallery.push(image);
 			//$("#galery").html("");
+			
+			// Create carroussel of images 
+			if(!prev.endsWith('png')) {
+				var link = document.createElement("a");
+				$(link).attr('href', prev);
+				$(link).attr('data-lightbox', 'gallery');
+				$(link).append(image);
+				$("#gallery-set").append(link);
+			}
 		}
 	});
 	
@@ -288,7 +297,7 @@ function createLayout(elementId, isPhoto) {
 		var screen = document.createElement("div");
 		screen.className = "screen";
 		
-		if(session.localStream) {
+		if(!isPhoto && session.localStream) {
 			screen.addEventListener('click', function (event) {
 				switchMobileCamera(session);
 			});	
@@ -325,7 +334,7 @@ function createLayout(elementId, isPhoto) {
 		caption.innerHTML = "Here is your photo!";
 		
 		var logo = document.createElement("img");
-		logo.src = "img/logo-white.png";
+		logo.src = "images/logo-white.png";
 		caption.appendChild(logo);
 		
 		element.appendChild(caption);
