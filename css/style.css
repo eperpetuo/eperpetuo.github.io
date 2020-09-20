@@ -39,12 +39,22 @@ p { width: 500px; text-align: left;}
 	border: 0px solid green;
 }
 
+#grid {
+	display: block;
+	width: 65px;
+	height: 65px;
+	margin-left: 10px;
+	margin-top: -75px;
+	opacity: 0.4;
+	cursor: pointer;
+}
+
 #preview {
 	display: block;
 	width: 70px;
 	height: 70px;
-	margin-left: 310px;
-	margin-top: -75px;
+	margin-left: 320px;
+	margin-top: -65px;
 	box-shadow: 0 0 5px 0 rgba(42, 45, 48, 0.12);
 	border-radius: 10px;
 }
@@ -144,47 +154,53 @@ p { width: 500px; text-align: left;}
 
 /* **************** */
 
-.container1 {
+.grid1 {
 	display: grid;
 	grid-template-columns: repeat(1, 1fr);
-	gap: 10px;	
+	gap: 6px;	
 }
-
 /* **************** */
 
-.container2_1 {
-	display: flex;
-	flex-wrap: wrap;
+.grid2 {
+	display: grid;
+	grid-template-columns: repeat(1, 1fr);
 	gap: 6px;
 }
-
 /* **************** */
 
-.container2 {
+.grid2_1 {
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
 	gap: 6px;	
 }
-
 /* **************** */
 
-.container3 {
+.grid3 {
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
 	gap: 6px;
 }
-.container3 > div:nth-child(n + 3){
+.grid3 > div:nth-child(n + 3){
 	width: 205%;
 }
+/* **************** */
+
+.grid3_1 {
+	display: grid;
+	gap: 6px;
+	grid-template-columns: 1fr 1fr;
+}
+.grid3_1 > div:first-child {
+	grid-column: 1 / span 2;
+}
 
 /* **************** */
 
-.container4 {
+.grid4 {
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
 	gap: 6px;
 }
-
 /* *************** */
 
 

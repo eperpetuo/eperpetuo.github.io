@@ -1,11 +1,11 @@
 var ctrl;
 var pubnub;
 
-var lobby = new Array();
 var sessions = new Array();
 var isHost = true;
 var orderList;
 var facingMode = "user"; // Can be 'user' or 'environment' to access back or front camera
+var gridClass;
 
 // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 // Initiate user video and single layout
@@ -15,6 +15,7 @@ var facingMode = "user"; // Can be 'user' or 'environment' to access back or fro
 	var video = document.createElement('video');
 	var session = {'number': getParams(window.location.href)["username"], 'video':video, 'localStream' : true};		
 	sessions.push(getLocalWebCamFeed(session));
+	gridClass = "grid1";
 	createLayout("app", false);
 	document.getElementById("label").style.backgroundColor="lightgray";
 	login();			
@@ -71,12 +72,14 @@ function login() {
 				console.log("Sending list of participants");
 				sendOrderList();
 			}
+			gridClass = "grid" + (sessions.length);
 			createLayout("app", false);
-			//addToLobby(session);
 		});
 		session.ended(function(session) { 
 			ctrl.getVideoElement(session.number).remove();
+			gridClass = null;
 			sessions = sessions.filter(function(value){ return value.number != session.number;});
+			gridClass = "grid" + (sessions.length);
 			createLayout("app", false);
 		});
 	});
@@ -96,10 +99,15 @@ function login() {
 			}
 			else if(message.message.text === 'reorder') {
 				if(!isHost) {
-					console.log("Ordem recebida: " + message.message.orderList);				
+					console.log("Order received: " + message.message.orderList);				
 					orderList = message.message.orderList;
 					createLayout("app", false);
 				}
+			}
+			else if(message.message.text === 'grid') {
+				console.log("Change grid: " + message.message.orderList);				
+				gridClass = message.message.gridClass;
+				createLayout("app", false);
 			}
 		}
 	})
@@ -128,30 +136,6 @@ function makeCall(){
 		console.log("Calling: " + number);
 	}
 	return false;
-}
-
-function addToLobby(session) {
-	if(isHost) 
-		new duDialog("@" + session.number, 'is waiting in the lobby', duDialog.OK_CANCEL, { 
-			okText: 'Admit',
-			cancelText: 'View',
-			dark: false,
-			callbacks: {
-				okClick: function(){
-					sessions.push(session);
-					createLayout("app", false);
-					this.hide();
-				},
-				cancelClick: function(){
-					lobby.push(session);
-					this.hide();
-				}
-			}
-		});
-	else {
-		sessions.push(session);
-		createLayout("app", false);
-	}
 }
 
 function smile() {
@@ -245,40 +229,43 @@ function takePhoto() {
 			}
 		}
 	});
-	
-/*
-	
-	// Get the modal
-	var modal = document.getElementById("myModal");
+}
 
-	// Get the <span> element that closes the modal
-	var span = document.getElementsByClassName("close")[0];
-
-	// When the user clicks on <span> (x), close the modal
-	span.onclick = function() {
-		modal.style.display = "none";
-	}
+function changeGrid() {
 	
-	modal.style.display = "block";
-
-	// When the user clicks anywhere outside of the modal, close it
-	window.onclick = function(event) {
-		if (event.target == modal) {
-			modal.style.display = "none";
+	if(sessions.length == 2 || sessions.length == 3) {
+		if(gridClass == "grid" + sessions.length) {
+			gridClass = "grid" + sessions.length + "_1";
+		} 
+		else {
+			gridClass = "grid" + sessions.length;
 		}
+
+		pubnub.publish({
+				message: { text: 'grid', gridClass: gridClass },
+				channel: 'channel'
+			}, 
+			function(status, response) {
+				if (status.error) {
+					console.log("publishing failed w/ status: ", status);
+				}
+			}
+		);
+
 	}
-	
-	*/
 }
 
 function createLayout(elementId, isPhoto) {
+	
+	console.log("######## Sessions: " + sessions.length);
+	console.log("######## gridClass: " + gridClass);
 
 	var screens = new Array();
 	var element = document.getElementById(elementId);
 	element.innerHTML = "";
 	
 	var container = document.createElement("div");
-	container.className = "container container" + sessions.length;
+	container.className = "container " + gridClass;
 	
 	if(orderList) {
 		console.log("Sorting screens");
