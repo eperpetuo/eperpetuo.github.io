@@ -187,7 +187,7 @@ function countdown(timeleft) {
 }
 
 function takePhoto() {
-	var screens = createLayout("galery", true);
+	var screens = createLayout("gallery", true);
 	screens.forEach(function (screen, index) {
 	
 		video = sessions[index].video;
@@ -210,25 +210,29 @@ function takePhoto() {
 		screens[index].appendChild(img);		
 	});
 	
-	html2canvas($("#galery"), {
-		onrendered: function(canvas) {
-			var prev = $("#preview").attr('src');
+	var node = document.getElementById('gallery');
 
-			var image = Canvas2Image.convertToPNG(canvas);
-            $("#preview").attr('src', $(image).attr('src'));
-            $("#previewLink").attr('href', $(image).attr('src'));
-			//$("#galery").html("");
-			
-			// Create carroussel of images 
-			if(!prev.endsWith('png')) {
-				var link = document.createElement("a");
-				$(link).attr('href', prev);
-				$(link).attr('data-lightbox', 'gallery');
-				$(link).append(image);
-				$("#gallery-set").append(link);
-			}
+	domtoimage.toPng(node)
+    .then (function (dataUrl) {
+        var img = new Image();
+        img.src = dataUrl;
+		$("#preview").attr('src', img.src);
+		$("#previewLink").attr('href', img.src);
+		$("#gallery").html("");
+		
+		// Create carroussel of images 
+		var prev = $("#preview").attr('src');
+		if(!prev.endsWith('png')) {
+			var link = document.createElement("a");
+			$(link).attr('href', prev);
+			$(link).attr('data-lightbox', 'gallery');
+			$(link).append(img);
+			$("#gallery-set").append(link);
 		}
-	});
+    })
+    .catch(function (error) {
+        console.error('oops, something went wrong!', error);
+    });
 }
 
 function changeGrid() {
