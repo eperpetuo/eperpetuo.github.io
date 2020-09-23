@@ -18,7 +18,7 @@ var gridClass;
 	gridClass = "grid1";
 	createLayout("app", false);
 	document.getElementById("label").style.backgroundColor="lightgray";
-	//login();			
+	login();			
 
 })();
 
