@@ -18,7 +18,7 @@ var gridClass;
 	gridClass = "grid1";
 	createLayout("app", false);
 	document.getElementById("label").style.backgroundColor="lightgray";
-	login();			
+	//login();			
 
 })();
 
@@ -260,7 +260,6 @@ function changeGrid() {
 }
 
 function createLayout(elementId, isPhoto) {
-	
 	console.log("######## Sessions: " + sessions.length);
 	console.log("######## gridClass: " + gridClass);
 
@@ -317,6 +316,10 @@ function createLayout(elementId, isPhoto) {
 		container.appendChild(screen);
 	});
 	element.appendChild(container);
+	
+	var counter = document.createElement("div");
+	counter.id = "counter";
+	element.appendChild(counter);
 	
 	/*if(isPhoto) {
 		element.className = "polaroid";

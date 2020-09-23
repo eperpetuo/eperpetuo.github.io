@@ -19,57 +19,42 @@
 	<meta name="theme-color" content="#ffffff">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" type="text/css" href="css/login.css"/>
-	<link rel="stylesheet" type="text/css" href="css/style.css"/>
 	<link rel="stylesheet" type="text/css" href="css/photo-button.css"/>
 	<link rel="stylesheet" href="css/lightbox.css" />
+	<link rel="stylesheet" type="text/css" href="css/style.css"/>
 </head>
 
 <body>
 
-	<div id="counter"></div>
 	<div id="app"></div>
 	
 	<div class="nav">
 		
-		<div class="photo-button" onclick="smile()">
-			<div class="circle"></div>
-			<div class="ring"></div>
-		</div>
-				
-		<img id="grid" src="images/rotate.png" onclick="changeGrid();">
-		
-		<a id="previewLink" href="images/ms-icon-70x70.png" data-lightbox="gallery">
-			<img id="preview" src="images/ms-icon-70x70.png">
-		</a>
-		
-		<div id="gallery-set" style="display:none"></div>
+		<div class="row">		
+			<img id="grid" src="images/rotate.png" onclick="changeGrid();">
+			
+			<div class="photo-button" onclick="countdown(5)">
+				<div class="circle"></div>
+				<div class="ring"></div>
+			</div>
 
+			<a id="previewLink" href="images/ms-icon-70x70.png" data-lightbox="gallery">
+				<img id="preview" src="images/ms-icon-70x70.png">
+			</a>
+		</div>	
+		
 		<div class="row">
 			<!--label for="username">Join a session</label-->
 			<input type="text" name="number" id="number" placeholder="Enter user to dial">
-			<!-- button onclick="makeCall()">Call</button -->
 			<div class="call-controler">
 				<img src="images/call-icon.png" onclick="makeCall()">
 				<img src="images/disconnect-icon.png" onclick="end()">
 			</div>
-			<!-- button class="endcall" onclick="end()">End call</button -->
 		</div>
 	<div>
+	
 	<div id="gallery"></div>
-
-	<!-- Modal Photo Gallery -->
-	<div id="myModal" class="modal-content" style="display:none">
-		<div class="modal-header">
-			<span class="close">&times;</span>
-			<h2>Photo Gallery</h2>
-		</div>
-		<div class="modal-body">
-		</div>
-		<div class="modal-footer">
-			<h3>Clubby</h3>
-			<h4>friends have fun anywhere</h4>
-		</div>
-	</div>
+	<div id="gallery-set" style="display:none"></div>
 
 </body>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
@@ -78,7 +63,6 @@
 	<script src="https://cdn.pubnub.com/webrtc/rtc-controller.js"></script>
 	<script src="https://superal.github.io/canvas2image/canvas2image.js"></script>
 	<script src="js/dom-to-image.min.js"></script>
-	<script src="js/croppie.js"></script>
 	<script src="js/lightbox.js"></script>
 	<script src="js/webrtc.js"></script>
 	<script src="js/script.js"></script>

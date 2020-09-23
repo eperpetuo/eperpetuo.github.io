@@ -8,34 +8,34 @@ body {
   align-items: center;
   margin: 0;
   padding: 0;
+  border: 0px solid yellow;
 }
-
-p { width: 500px; text-align: left;}
 
 #counter {
 	font-family: Arial;
 	font-size: 68pt;
 	font-weight: bold;
 	position: absolute;
-	margin-top: 130px;
-	margin-left: -35px;
-	width: 10px;
+	top: 110px;
+	width: 100%;
+	max-width: 360px;
+	text-align: center;
 	color: white;
 	text-shadow: 2px 2px gray;
 	z-index: 100;
 }
 
 .screen {
-	width: 100%;
 	border: 0px solid black;
 	background: lightgray;
-	text-align: center;
+	margin: 0;
+	padding: 0;
 }
 
 #app {
 	width: 100%;
-	max-width: 400px;
-	margin: 0px auto;
+	max-width: 360px;
+	margin: 0 auto;
 	border: 0px solid green;
 }
 
@@ -44,7 +44,7 @@ p { width: 500px; text-align: left;}
 	width: 65px;
 	height: 65px;
 	margin-left: 10px;
-	margin-top: -75px;
+	margin-top: 0px;
 	opacity: 0.4;
 	cursor: pointer;
 }
@@ -53,17 +53,15 @@ p { width: 500px; text-align: left;}
 	display: block;
 	width: 70px;
 	height: 70px;
-	margin-left: 320px;
-	margin-top: -65px;
+	margin-left: calc(100% - 80px);
+	margin-top:-70px;
 	box-shadow: 0 0 5px 0 rgba(42, 45, 48, 0.12);
 	border-radius: 10px;
 }
 
 .container {
-	width: 100%;
-	max-width: 380px;
-	height: 380px;
-	margin-top: 0px;
+	height: 320px;
+	margin: 0px;
 	border: 0px solid red;	
 	padding: 10px;
 	background: #fff;
@@ -102,17 +100,16 @@ p { width: 500px; text-align: left;}
 
 .nav {
 	width: 100%;
-	max-width: 400px;
+	max-width: 360px;
+	margin: 0 auto;
+	border: 0px solid green;
 	padding: 20px 0;
-	margin: 0px;
-	border: 0px solid blue;	
-	text-align: left;
 }
 
 #number {
 	border-radius: 10px;
-	width: 400px;
-	margin: 40px auto 0 auto;
+	width: calc(100% - 20px);
+	margin: 10px auto 0 auto;
 }
 
 .call-controler {
@@ -181,7 +178,8 @@ p { width: 500px; text-align: left;}
 	gap: 6px;
 }
 .grid3 > div:nth-child(n + 3){
-	width: 205%;
+	--width: 205%;
+	grid-column: 1 / span 2;
 }
 /* **************** */
 
@@ -204,7 +202,22 @@ p { width: 500px; text-align: left;}
 /* *************** */
 
 
+@media screen and (orientation:landscape) and (max-width:1200px){
+	#app {
+		width: 100%;
+		max-width: 360px;
+		margin-left: 0;
+		border: 0px solid green;
+	}
 
-
+	.nav {
+		width: 100%;
+		max-width: 360px;
+		margin-top: -310px;
+		margin-left: 360px;
+		border: 0px solid green;
+		padding: 20px 0;
+	}
+}
 --// CSS Modal: https://codepen.io/iansoper/pen/npqgC
 --// CSS Polaroid: https://codepen.io/neodern/pen/oKEyaw

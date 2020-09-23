@@ -2,7 +2,8 @@
 .photo-button {
   width: 70px;
   height: 70px;
-  margin-left: 165px;
+  margin-left: calc(50% - 35px);
+  margin-top: -65px;
   background: #DEE0F3;
   border-radius: 100%;
   border: 1px solid #DEE0F3;
